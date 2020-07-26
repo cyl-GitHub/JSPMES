@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.colin.mapper.PermMapper">
+
+
+    <insert id="addPerm">
+        insert into authority(u_id,perm) values (#{id},#{perm});
+    </insert>
+    <update id="updatePerm">
+        update authority set perm=#{perm} where u_id=#{id}
+    </update>
+    <delete id="deletePerm">
+        delete from authority where u_id=#{uid};
+    </delete>
+</mapper>

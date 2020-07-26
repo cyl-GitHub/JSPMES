@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.colin.mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="com.colin.bean.User">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="position" property="position"/>
+        <result column="salary" property="salary"/>
+        <result column="perm" property="perm"/>
+        <association property="department" javaType="com.colin.bean.Department">
+            <id column="d_id" property="id"/>
+            <result column="d_name" property="dName"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertUser">
+        insert into user(name,password) values(#{name},#{password});
+    </insert>
+    <insert id="addUser">
+        insert into user(name,password,position,salary,d_id) values(#{name},#{password},#{position},#{salary},#{department.id});
+    </insert>
+    <delete id="deleteUser">
+        delete from user where id = #{id}
+    </delete>
+
+    <select id="selectUser" resultType="com.colin.bean.User">
+        select id,name,password from user where name = #{name}
+    </select>
+
+    <select id="selectUserCount" resultType="java.lang.Integer">
+        select count(*) from user
+    </select>
+    <select id="selectAllUser" resultMap="userResultMap">
+        select u.id,u.name,password,position,salary,d_id,d_name,perm
+        from user u,authority a,department d where u.id=a.u_id and d.id=u.d_id  limit #{param1},#{param2};
+    </select>
+    <select id="selectUserByName" resultMap="userResultMap">
+        select u.id,u.name,password,position,salary,d_id,d_name,perm
+        from user u,authority a,department d where u.id=a.u_id and d.id=u.d_id  and u.name=#{name};
+    </select>
+
+
+    <update id="changePassword">
+        update user set password = #{password} where id = #{id}
+    </update>
+    <update id="updateUser">
+         update user set name = #{name},position=#{position},
+         salary=#{salary},d_id=#{department.id} where id = #{id}
+    </update>
+
+</mapper>

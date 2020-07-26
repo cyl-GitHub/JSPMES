@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.colin.mapper.DepartmentMapper">
+
+    <resultMap id="departmentResultMap" type="com.colin.bean.Department">
+        <id column="id" property="id"/>
+        <result column="d_name" property="dName"/>
+    </resultMap>
+
+    <select id="selectDepartmentByName" resultMap="departmentResultMap">
+        select id,d_name from department where d_name=#{department}
+    </select>
+    <select id="selectAllDepartment" resultMap="departmentResultMap">
+        select id,d_name from department
+    </select>
+</mapper>

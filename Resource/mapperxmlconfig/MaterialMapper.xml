@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.colin.mapper.MaterialMapper">
+    <resultMap id="materialResultMap" type="com.colin.bean.Material">
+        <id column="id" property="id"/>
+        <result column="m_name" property="mName"/>
+        <result column="number" property="number"/>
+    </resultMap>
+
+
+    <resultMap id="pmResultMap" type="com.colin.bean.PM">
+        <id column="id" property="id"/>
+        <result column="p_id" property="pId"/>
+        <result column="m_id" property="mId"/>
+        <result column="count" property="count"/>
+    </resultMap>
+
+
+    <insert id="doAddMaterial">
+        insert into material (m_name,number) values (#{mName},#{number})
+    </insert>
+    <update id="doAddMaterialNumber">
+        update material set number=number+#{count} where id=#{id};
+    </update>
+    <delete id="deleteMaterial">
+        delete from material where id=#{id}
+    </delete>
+
+    <select id="selectMaterialCount" resultType="java.lang.Integer">
+        select count(*) from material
+    </select>
+    <select id="selectAllMaterials" resultMap="materialResultMap">
+        select id,m_name,number from material limit #{param1},#{param2};
+    </select>
+    <select id="selectMaterialByName" resultMap="materialResultMap">
+         select id,m_name,number from material where m_name=#{name}
+    </select>
+    <select id="selectMaterialCountByPid" resultType="java.lang.Integer">
+        select count(*)  from pro_mat where p_id = #{pId}
+    </select>
+    <select id="selectAllMaterialsByPid" resultMap="materialResultMap">
+         select id,m_name,number from material where p_id = #{param3} limit #{param1},#{param2};
+    </select>
+    <select id="selectMaterialIdByPid" resultMap="pmResultMap">
+        select id,p_id,m_id,count from pro_mat where p_id=#{param3} limit #{param1},#{param2}
+    </select>
+    <select id="selectAllMaterialsByMid" resultMap="materialResultMap">
+        select id,m_name,number from material where id=#{mId}
+    </select>
+    <select id="selectMaterialById" resultMap="materialResultMap">
+         select id,m_name,number from material where id=#{mId}
+    </select>
+</mapper>

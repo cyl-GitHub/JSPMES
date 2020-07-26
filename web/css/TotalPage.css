@@ -1,0 +1,17 @@
+.iframe1{
+    frameborder:0;
+    border-width: 0px;
+    height:100%;
+    width:18%;
+    background-color: honeydew;
+    float: left;
+}
+
+.iframe2{
+    frameborder:0;
+
+    border-width: 0px;
+    height:100%;
+    width:82%;
+    float: left;
+}

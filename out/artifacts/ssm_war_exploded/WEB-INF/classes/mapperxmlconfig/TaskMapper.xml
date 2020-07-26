@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.colin.mapper.TaskMapper">
+
+
+    <resultMap id="taskResultMap" type="com.colin.bean.Task">
+        <id column="id" property="id"/>
+        <result column="t_name" property="tName"/>
+        <result column="u_id" property="uid"/>
+        <result column="createtime" property="createTime"/>
+        <result column="starttime" property="startTime"/>
+        <result column="endtime" property="endTime"/>
+        <result column="machine_num" property="machineNum"/>
+        <result column="jop_num" property="jopNum"/>
+        <result column="over" property="over"/>
+    </resultMap>
+
+
+    <insert id="addTask">
+        insert into task(t_name,u_id,machine_num,jop_num) values (#{tName},#{uid},#{machineNum},#{jopNum})
+    </insert>
+    <update id="updateJopNum">
+        update task set jop_num=jop_num+#{param1} where id = #{param2}
+    </update>
+    <update id="updateEndTime">
+        update task set endtime=#{param1} where id=#{param2}
+    </update>
+    <update id="updateOver">
+        update task set over = #{param1} where id = #{param2}
+    </update>
+    <delete id="deleteTask">
+        delete from task where id = #{id}
+    </delete>
+    <select id="selectTask" resultMap="taskResultMap">
+        select id,t_name,u_id,createtime,starttime,endtime,machine_num,jop_num
+        from task where u_id=#{uid} and createtime=#{createTime}
+    </select>
+    <select id="selectTaskByName" resultMap="taskResultMap">
+        select * from  task where t_name=#{name}
+    </select>
+    <select id="selectTaskCount" resultType="java.lang.Integer">
+        select count(*) from task where u_id=#{uid}
+    </select>
+    <select id="selectAllTask" resultMap="taskResultMap">
+         select id,t_name,u_id,createtime,starttime,endtime,machine_num,jop_num,over from task limit #{param1},#{param2};
+    </select>
+    <select id="selectTaskById" resultMap="taskResultMap">
+        select id,t_name,u_id,createtime,starttime,endtime,machine_num,jop_num,over from task where id=#{id}
+    </select>
+</mapper>

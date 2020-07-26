@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.colin.mapper.JopMapper">
+
+    <resultMap id="jopResultMap" type="com.colin.bean.Jop">
+        <id column="id" property="id"/>
+        <result column="t_id" property="tId"/>
+        <result column="process_num" property="processNum"/>
+        <result column="ranking" property="ranking"/>
+    </resultMap>
+
+
+    <insert id="addJop">
+        insert into jop(t_id,ranking) values (#{tId},#{ranking})
+    </insert>
+    <update id="updateProcessNum">
+        update jop set process_num=process_num+#{param1} where id = #{param2}
+    </update>
+    <delete id="deleteJop">
+        delete from jop where id=#{id}
+    </delete>
+    <select id="selectJopCount" resultType="java.lang.Integer">
+        select count(*) from jop where t_id=#{tId};
+    </select>
+    <select id="selectAllJop" resultMap="jopResultMap">
+    select id,t_id,process_num,ranking from  jop where t_id = #{param3} limit #{param1},#{param2};
+    </select>
+    <select id="selectAllJopByTid" resultMap="jopResultMap">
+         select id,t_id,process_num,ranking from  jop where t_id=#{id}
+    </select>
+</mapper>

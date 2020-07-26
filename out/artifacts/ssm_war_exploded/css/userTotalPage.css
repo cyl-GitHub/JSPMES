@@ -1,0 +1,26 @@
+.up {
+    frameborder: 0;
+    border-width: 0px;
+    height: 60%;
+    width: 100%;
+    background-color: honeydew;
+    float: top;
+}
+
+.down {
+    frameborder: 0;
+    border-width: 0px;
+    height: 30%;
+    width: 100%;
+    float: top;
+}
+
+
+.EOVWait{
+    width: 25px;
+    height: 20px;
+    float: left;
+    text-align: center;
+    margin: -1px 0 0 -1px;
+    padding: 0;
+}
